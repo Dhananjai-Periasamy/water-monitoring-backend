@@ -9,12 +9,10 @@ file_index = 1
 row_count = 0
 file_name = f"data_{file_index}.csv"
 
-# Create first CSV
 if not os.path.exists(file_name):
     with open(file_name, "w") as f:
         f.write("distance_cm,level_percent\n")
 
-# ✅ POST API (ESP32)
 @app.route("/data", methods=["POST"])
 def receive_data():
     global row_count, file_index, file_name
@@ -38,7 +36,6 @@ def receive_data():
 
     return jsonify({"success": True})
 
-# ✅ GET API (Frontend)
 @app.route("/query", methods=["GET"])
 def get_data():
     result = []
@@ -57,7 +54,3 @@ def get_data():
                         })
 
     return jsonify(result)
-
-# ✅ Render port fix
-port = int(os.environ.get("PORT", 5000))
-app.run(host="0.0.0.0", port=port)
